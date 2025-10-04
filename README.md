@@ -54,19 +54,6 @@ terraform test
 
 Verify that all tests successfully passed.
 
-The output should be similar to:
-
-```shell
-tests/localstack.tftest.hcl... in progress
-  run "check_s3_bucket_name"... pass
-  run "check_lambda_function"... pass
-  run "check_name_of_filename_written_to_dynamodb"... pass
-tests/localstack.tftest.hcl... tearing down
-tests/localstack.tftest.hcl... pass
-
-Success! 3 passed, 0 failed.
-```
-
 ### Resource Cleanup
 
 Enter the following command to destroy Local Stack Container.
