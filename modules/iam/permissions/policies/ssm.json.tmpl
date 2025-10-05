@@ -1,0 +1,31 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "SSMParametersByTag",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters",
+        "ssm:GetParametersByPath",
+        "ssm:PutParameter"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "ssm:ResourceTag/${tag_key}": "${identifier}"
+        }
+      }
+    },
+    {
+      "Sid": "SSMParameterPathByIdentifier",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters",
+        "ssm:GetParametersByPath"
+      ],
+      "Resource": ["arn:aws:ssm:*:*:parameter/*${identifier}*"]
+    }
+  ]
+}

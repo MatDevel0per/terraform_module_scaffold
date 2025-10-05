@@ -1,0 +1,27 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "IAMPassAndReadTaggedRoles",
+      "Effect": "Allow",
+      "Action": ["iam:GetRole", "iam:ListRoleTags", "iam:PassRole"],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "iam:ResourceTag/${tag_key}": "${identifier}"
+        }
+      }
+    },
+    {
+      "Sid": "IAMPolicyReadTagged",
+      "Effect": "Allow",
+      "Action": ["iam:GetPolicy", "iam:GetPolicyVersion", "iam:ListPolicyTags"],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "iam:ResourceTag/${tag_key}": "${identifier}"
+        }
+      }
+    }
+  ]
+}

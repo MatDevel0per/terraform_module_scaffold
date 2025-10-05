@@ -1,0 +1,33 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "EC2InstanceLifecycleByTag",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:StartInstances",
+        "ec2:StopInstances",
+        "ec2:RebootInstances",
+        "ec2:TerminateInstances",
+        "ec2:DescribeInstances"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "ec2:ResourceTag/${tag_key}": "${identifier}"
+        }
+      }
+    },
+    {
+      "Sid": "EC2DescribeReadOnly",
+      "Effect": "Allow",
+      "Action": ["ec2:Describe*"],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "ec2:ResourceTag/${tag_key}": "${identifier}"
+        }
+      }
+    }
+  ]
+}
