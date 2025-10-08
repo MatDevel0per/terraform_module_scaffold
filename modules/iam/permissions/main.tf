@@ -5,6 +5,7 @@ locals {
       {
         identifier = var.identifier
         tag_key    = var.tag_key
+        test-map   = var.test-map
       }
     )
   }

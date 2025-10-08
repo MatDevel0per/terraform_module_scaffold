@@ -8,7 +8,14 @@ variable "identifier" {
   description = "Short code / identifier used to scope access (e.g., tag value, name fragment, or path component)."
   type        = string
 }
-
+variable "test-map" {
+  description = "A test map variable."
+  type        = map(string)
+  default = {
+    "Environment" = "prod"
+    "Team"        = "devops"
+  }
+}
 
 variable "tag_key" {
   description = "Tag key used on resources to bind them to the identifier."

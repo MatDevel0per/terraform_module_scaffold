@@ -5,7 +5,7 @@ module "deployerRole" {
 }
 module "scoped_inline_policies" {
   source     = "./modules/iam/permissions"
-  services   = ["iam", "ec2", "ssm"]
+  services   = ["iam"]
   identifier = "devops"
   tag_key    = "Project"
   role_name  = module.deployerRole.role_name

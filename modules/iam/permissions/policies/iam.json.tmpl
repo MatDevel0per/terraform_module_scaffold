@@ -8,7 +8,9 @@
       "Resource": "*",
       "Condition": {
         "StringEquals": {
-          "iam:ResourceTag/${tag_key}": "${identifier}"
+      %{ for tag-key, tag-value in test-map ~}
+          "aws:RequestTag/${tag-key}": "${tag-value}"%{ if length(test-map) > (index(keys(test-map), tag-key) + 1) },%{ endif }
+%{ endfor ~}
         }
       }
     },
@@ -19,7 +21,9 @@
       "Resource": "*",
       "Condition": {
         "StringEquals": {
-          "iam:ResourceTag/${tag_key}": "${identifier}"
+          %{ for tag-key, tag-value in test-map ~}
+          "aws:RequestTag/${tag-key}": "${tag-value}"%{ if length(test-map) > (index(keys(test-map), tag-key) + 1) },%{ endif }
+%{ endfor ~}
         }
       }
     }
