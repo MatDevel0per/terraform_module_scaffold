@@ -2,11 +2,20 @@ variable "services" {
   description = "List of service policy templates to include (e.g., [\"ec2\", \"iam\", \"ssm\"])."
   type        = list(string)
 }
-
-
-variable "identifier" {
+# I need a ShortCode variable
+variable "shortcode" {
   description = "Short code / identifier used to scope access (e.g., tag value, name fragment, or path component)."
   type        = string
+  default     = "test"
+}
+
+variable "arn-identifier-list" {
+  description = "Short code / identifier used to scope access (e.g., tag value, name fragment, or path component)."
+  type        = list(string)
+  default = [
+    "devops",
+    "analytics"
+  ]
 }
 variable "tag-map" {
   description = "A test map variable."

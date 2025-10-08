@@ -27,7 +27,11 @@
         "ssm:GetParameters",
         "ssm:GetParametersByPath"
       ],
-      "Resource": ["arn:aws:ssm:*:*:parameter/*${identifier}*"]
+      "Resource": [
+        %{ for index, resource in arn-identifiers ~}
+        "arn:aws:ssm:*:*:parameter/*${resource}*"%{ if index < length(arn-identifiers) - 1 },%{ endif }
+%{ endfor ~}
+        ]
     }
   ]
 }

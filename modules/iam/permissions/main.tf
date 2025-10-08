@@ -3,9 +3,8 @@ locals {
     for svc in var.services : svc => templatefile(
       "${path.module}/policies/${svc}.json.tftpl",
       {
-        identifier = var.identifier
-        tag_key    = var.tag_key
-        tag-map    = var.tag-map
+        arn-identifiers = var.arn-identifier-list
+        tag-map         = var.tag-map
       }
     )
   }
@@ -40,7 +39,7 @@ locals {
 # Create inline policies directly on an existing role
 resource "aws_iam_role_policy" "inline" {
   count  = length(local.policy_docs)
-  name   = "${var.policy_name_prefix}-${replace(var.identifier, ":/ \\*\"", "-")}-${count.index}"
+  name   = "${var.policy_name_prefix}-${replace(var.shortcode, ":/ \\*\"", "-")}-${count.index}"
   role   = var.role_name
   policy = local.policy_docs[count.index]
 }
