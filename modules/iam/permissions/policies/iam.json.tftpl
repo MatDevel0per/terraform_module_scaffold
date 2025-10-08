@@ -8,8 +8,8 @@
       "Resource": "*",
       "Condition": {
         "StringEquals": {
-      %{ for tag-key, tag-value in test-map ~}
-          "aws:RequestTag/${tag-key}": "${tag-value}"%{ if length(test-map) > (index(keys(test-map), tag-key) + 1) },%{ endif }
+      %{ for tag-key, tag-value in tag-map ~}
+          "aws:RequestTag/${tag-key}": "${tag-value}"%{ if length(tag-map) > (index(keys(tag-map), tag-key) + 1) },%{ endif }
 %{ endfor ~}
         }
       }
@@ -21,8 +21,8 @@
       "Resource": "*",
       "Condition": {
         "StringEquals": {
-          %{ for tag-key, tag-value in test-map ~}
-          "aws:RequestTag/${tag-key}": "${tag-value}"%{ if length(test-map) > (index(keys(test-map), tag-key) + 1) },%{ endif }
+          %{ for tag-key, tag-value in tag-map ~}
+          "aws:RequestTag/${tag-key}": "${tag-value}"%{ if length(tag-map) > (index(keys(tag-map), tag-key) + 1) },%{ endif }
 %{ endfor ~}
         }
       }

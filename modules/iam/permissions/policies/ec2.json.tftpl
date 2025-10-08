@@ -14,7 +14,9 @@
       "Resource": "*",
       "Condition": {
         "StringEquals": {
-          "ec2:ResourceTag/${tag_key}": "${identifier}"
+          %{ for tag-key, tag-value in tag-map ~}
+          "ec2:ResourceTag/${tag-key}": "${tag-value}"%{ if length(tag-map) > (index(keys(tag-map), tag-key) + 1) },%{ endif }
+%{ endfor ~}
         }
       }
     },
@@ -25,7 +27,9 @@
       "Resource": "*",
       "Condition": {
         "StringEquals": {
-          "ec2:ResourceTag/${tag_key}": "${identifier}"
+          %{ for tag-key, tag-value in tag-map ~}
+          "ec2:ResourceTag/${tag-key}": "${tag-value}"%{ if length(tag-map) > (index(keys(tag-map), tag-key) + 1) },%{ endif }
+%{ endfor ~}
         }
       }
     }

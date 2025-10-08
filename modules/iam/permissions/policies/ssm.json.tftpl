@@ -13,7 +13,9 @@
       "Resource": "*",
       "Condition": {
         "StringEquals": {
-          "ssm:ResourceTag/${tag_key}": "${identifier}"
+          %{ for tag-key, tag-value in tag-map ~}
+          "ssm:ResourceTag/${tag-key}": "${tag-value}"%{ if length(tag-map) > (index(keys(tag-map), tag-key) + 1) },%{ endif }
+%{ endfor ~}
         }
       }
     },

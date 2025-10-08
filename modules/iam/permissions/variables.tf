@@ -8,7 +8,7 @@ variable "identifier" {
   description = "Short code / identifier used to scope access (e.g., tag value, name fragment, or path component)."
   type        = string
 }
-variable "test-map" {
+variable "tag-map" {
   description = "A test map variable."
   type        = map(string)
   default = {
