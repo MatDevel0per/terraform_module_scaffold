@@ -1,7 +1,7 @@
 locals {
   rendered_templates = {
     for svc in var.services : svc => templatefile(
-      "${path.module}/policies/${svc}.json.tmpl",
+      "${path.module}/policies/${svc}.json.tftpl",
       {
         identifier = var.identifier
         tag_key    = var.tag_key
