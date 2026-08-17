@@ -1,17 +1,18 @@
 services:
-  localstack:
-    container_name: localstack
-    image: localstack/localstack:latest
-    read_only: false # required to write to /tmp
+  ministack:
+    container_name: ministack
+    image: ministackorg/ministack:latest
     ports:
       - "4566:4566"
-      - "4571:4571"
     environment:
       - DEBUG=1
-      - DOCKER_HOST=unix:///var/run/docker.sock
       - AWS_DEFAULT_REGION=eu-west-2
+      - PERSIST_STATE=1
+      - STATE_DIR=/tmp/ministack-state
+      - LAMBDA_EXECUTOR=docker
+      - DOCKER_NETWORK=${COMPOSE_PROJECT_NAME:-ministack}_default
     volumes:
-      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
-      - "/var/run/docker.sock:/var/run/docker.sock" # required for some AWS services like AWS Lambda
+      - "${MINISTACK_VOLUME_DIR:-./volume}:/tmp/ministack-state"
+      - "/var/run/docker.sock:/var/run/docker.sock"
     security_opt:
       - no-new-privileges:true
