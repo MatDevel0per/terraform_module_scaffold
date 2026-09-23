@@ -1,0 +1,9 @@
+principle_type: service
+role_name: fistROLE
+services:
+  - ssm
+  - ec2
+  - iam
+arn_ids:
+  - devops
+  - analytics
