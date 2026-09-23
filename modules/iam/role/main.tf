@@ -1,20 +1,17 @@
 locals {
-  create_role = var.principal_type != "" && var.role_name != "" ? true : false
-}
-data "aws_iam_policy_document" "role_policy" {
-  statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = var.principal_type
-      identifiers = ["ec2.amazonaws.com"]
-    }
-  }
+  create_role = var.role_name != "" ? true : false
 }
 
 resource "aws_iam_role" "role" {
-  count              = local.create_role ? 1 : 0
-  name               = var.role_name
-  path               = "/deployment/"
-  assume_role_policy = data.aws_iam_policy_document.role_policy.json
+  count = local.create_role ? 1 : 0
+  name  = var.role_name
+  path  = "/deployment/"
+  assume_role_policy = templatefile(
+    "${path.module}/policies/trust-relationship.json.tmpl",
+    {
+      principals    = var.principals
+      accountNumber = var.account_number
+      conditions    = var.conditions
+    }
+  )
 }

@@ -3,3 +3,9 @@ variable "role_name" {
   type        = string
   default     = "deployer-role"
 }
+
+variable "environment" {
+  description = "The environment your targeting"
+  type        = string
+  default     = "dev"
+}

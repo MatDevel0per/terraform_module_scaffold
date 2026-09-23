@@ -5,10 +5,10 @@ locals {
 }
 
 module "deployerRole" {
-  source         = "./modules/iam/role"
-  for_each       = local.configs
-  principal_type = each.value.principle_type
-  role_name      = each.value.role_name
+  source     = "./modules/iam/role"
+  for_each   = local.configs
+  principals = try(var.environment == "dev" ? each.value.dev_principals : each.value.prod_principles)
+  role_name  = each.value.role_name
 }
 module "scoped_inline_policies" {
   source              = "./modules/iam/permissions"

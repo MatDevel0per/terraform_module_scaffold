@@ -1,0 +1,27 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                %{ for principle in principals ~}
+                "${principle.type}": [
+                    %{ for identifier in principle.identifiers ~}
+                        %{ if principle.type == "AWS" && !startswith(identifier, "arn:") }"arn:aws:iam::${accountNumber}:role/${identifier}"%{ else }"${identifier}"%{ endif }
+                        %{ endfor ~}
+                ]%{ if index(principals, principle) < length(principals) - 1},%{ endif }
+                %{ endfor ~}
+            },
+                "Action": "sts:AssumeRole"
+                %{ if length(conditions) > 0 }
+                ,"Condition": {
+                    %{for condition in conditions ~}
+                    "${condition.operator}":{
+                        "${condition.key}": "${condition.value}"
+                    }%{ if index(conditions, condition) < length(conditions) - 1 },%{ endif }
+                    %{ endfor ~}
+                }
+                %{ endif }
+            }
+    ]
+}

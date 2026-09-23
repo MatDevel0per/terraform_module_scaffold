@@ -5,3 +5,14 @@ services:
 arn_ids:
   - devops
   - analytics
+dev_principals:
+  - type: AWS
+    identifiers:
+      - firstRole
+  - type: Service
+    identifiers:
+      - cloudformation.amazonaws.com
+pro_principals:
+  - type: AWS
+    identifiers:
+      - ahhhhhPROD
