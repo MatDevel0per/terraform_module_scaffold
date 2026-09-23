@@ -1,12 +1,20 @@
+locals {
+  config_files = fileset("${path.module}/configs", "*.yaml")
+  configs = { for file in local.config_files :
+  file => yamldecode(file("${path.module}/configs/${file}")) }
+}
+
 module "deployerRole" {
   source         = "./modules/iam/role"
-  principal_type = "service"
-  role_name      = var.role_name
+  for_each       = local.configs
+  principal_type = each.value.principle_type
+  role_name      = each.value.role_name
 }
 module "scoped_inline_policies" {
   source              = "./modules/iam/permissions"
-  services            = ["iam", "ec2", "ssm"]
-  arn-identifier-list = ["devops", "analytics"]
-  tag_key             = "Project"
-  role_name           = module.deployerRole.role_name
+  for_each            = local.configs
+  services            = each.value.services
+  arn-identifier-list = each.value.arn_ids
+  role_name           = each.value.role_name
+  depends_on          = [module.deployerRole]
 }

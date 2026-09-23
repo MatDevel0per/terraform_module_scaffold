@@ -1,0 +1,7 @@
+principle_type: service
+role_name: secondROLE
+services:
+  - ssm
+arn_ids:
+  - devops
+  - analytics
