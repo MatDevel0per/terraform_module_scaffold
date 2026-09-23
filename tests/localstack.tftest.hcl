@@ -41,8 +41,12 @@ run "check_iam_role_arn" {
   command = apply
 
   assert {
-    condition     = output.role_arn == "arn:aws:iam::000000000000:role/deployment/${var.role_name}"
-    error_message = "S3 bucket name does not match"
+    condition = contains(
+      values(output.role_arns),
+      "arn:aws:iam::000000000000:role/deployment/firstROLE"
+    )
+
+    error_message = "First role ARN not found"
   }
 
 }

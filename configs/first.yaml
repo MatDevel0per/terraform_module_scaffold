@@ -1,5 +1,5 @@
 principle_type: service
-role_name: fistROLE
+role_name: firstROLE
 services:
   - ssm
   - ec2
