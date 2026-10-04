@@ -1,0 +1,29 @@
+parameters:
+  - name: thisIsAParam
+    type: String
+    description: YES a parameter
+    values: 
+      dev: "DEV"
+      prod: "PROD!!!!"
+# Obviously never commit a value for a secure string parameter unless set to placeholder just to prove it can handle it.
+  - name: thisIsASecretParam
+    type: SecureString
+    description: YES a SECURE paramter
+    values: 
+      dev: "SecureDEV"
+      prod: "SecurePROD!!!!"
+  - name: thisIsADefaultParamWithEnv
+    type: String
+    description: YES a parameter
+    values: 
+      default: "DEFAULT"
+      dev: "DEV"
+      prod: "PROD!!!!"
+  - name: thisIsADefaultParamWithNoEnv
+    type: String
+    description: YES a parameter
+    values: 
+      default: "DEFAULT"
+  - name: thisIsANoValueParam
+    type: String
+    description: YES a parameter

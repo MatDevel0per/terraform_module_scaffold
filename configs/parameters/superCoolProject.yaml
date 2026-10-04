@@ -1,0 +1,14 @@
+parameters:
+  - name: thisIsAParamButCool
+    type: String
+    description: YES a parameter
+    values: 
+      dev: "DEVButCool"
+      prod: "PRODButCool!!!!"
+# Obviously never commit a value for a secure string parameter unless set to placeholder just to prove it can handle it.
+  - name: thisIsASecretParamButCool
+    type: SecureString
+    description: YES a SECURE paramter
+    values: 
+      dev: "SecureDEVButCool"
+      prod: "SecurePRODButCool!!!!"
